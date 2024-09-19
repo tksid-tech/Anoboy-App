@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anoboy</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #0d0d0d;
+            color: #e0e0e0;
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .dark-mode body {
+            background: #121212;
+            color: #e0e0e0;
+        }
+        #browser {
+            flex: 1;
+            width: 100%;
+            border: none;
+            margin-top: 0;
+        }
+        .toast {
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            color: #e0e0e0;
+            padding: 6px 12px;
+            border-radius: 4px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 1000;
+            font-size: 12px;
+        }
+        .toast.show {
+            display: block;
+            animation: fadeInOut 2s forwards;
+        }
+        @keyframes fadeInOut {
+            0% { opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        .cyberpunk-bg {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9));
+            border: 1px solid #00ffcc;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+        .top-buttons, .bottom-buttons {
+            position: fixed;
+            z-index: 1000;
+        }
+        .top-buttons {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            top: 10px;
+            left: 0;
+            padding: 0 10px;
+            box-sizing: border-box;
+        }
+        .bottom-buttons {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            bottom: 10px;
+            left: 0;
+            padding: 0 10px;
+            box-sizing: border-box;
+        }
+        .exit-button, .ai-help, .donate-button, .shop-button {
+            background: rgba(255, 0, 127, 0.9);
+            color: #fff;
+            border: none;
+            padding: 4px 8px;
+            cursor: pointer;
+            border-radius: 4px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+        .exit-button:hover, .shop-button:hover {
+            background-color: rgba(255, 105, 180, 0.9);
+        }
+        .ai-help:hover {
+            background-color: rgba(0, 255, 255, 0.7);
+        }
+        .donate-button:hover {
+            background-color: rgba(0, 200, 0, 0.9);
+        }
+        .donate-icon, .shop-icon {
+            font-size: 18px;
+            line-height: 24px;
+        }
+
+    </style>
+</head>
+<body class="cyberpunk-bg">
+    <div class="top-buttons">
+        <button class="donate-button" onclick="donate()">
+            <span class="donate-icon">Rp</span> <!-- Symbol for Rupiah -->
+        </button>
+        <button class="exit-button" onclick="exitApp()">&#10006;</button>
+    </div>
+    <div class="bottom-buttons">
+        <button id="ai-help" class="ai-help">&#128231;</button> <!-- ASCII art for help (📧) -->
+        <button class="shop-button" onclick="shop()">
+            <span class="shop-icon">🛒</span> <!-- ASCII art for shopping -->
+        </button>
+    </div>
+    <iframe id="browser" src="https://anoboy.foundation/" allow="fullscreen"></iframe>
+    <div id="welcome-toast" class="toast">Welcome to Anoboy</div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Show welcome toast on load
+        document.addEventListener('DOMContentLoaded', function() {
+            const toast = document.getElementById('welcome-toast');
+            toast.classList.add('show');
+        });
+
+        // Function to handle exit
+        function exitApp() {
+            if (confirm("Are you sure you want to exit?")) {
+                window.close();
+                if (!window.closed) {
+                    window.open('', '_self').close();
+                }
+            }
+        }
+
+        // Adjust iframe height on resize
+        window.addEventListener('resize', function() {
+            document.getElementById('browser').style.height = window.innerHeight + 'px';
+        });
+
+        // Initial height adjustment
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('browser').style.height = window.innerHeight + 'px';
+        });
+
+        // AI help button functionality
+        document.getElementById('ai-help').addEventListener('click', function() {
+            window.location.href = 'mailto:febriwijoyo@gmail.com?subject=Help Request&body=Hello, I need assistance with...';
+        });
+
+        // Shop button functionality
+        function shop() {
+            window.open('https://tokopedia.link/15T6O6Kp0Mb', '_blank');
+        }
+
+        // Donate button functionality
+        function donate() {
+            window.location.href = 'https://tako.id/brijoy';
+        }
+    </script>
+</body>
+</html>
